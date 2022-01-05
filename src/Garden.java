@@ -1,4 +1,6 @@
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /*
 This is the class that handles the garden and how it functions.
@@ -20,7 +22,7 @@ public class Garden {
         given list of bees.
         */
         for (Bee b: listOfBees) {
-
+            b.move();
         }
 
         /*
@@ -28,7 +30,11 @@ public class Garden {
         of flowers.
          */
         for (Flower f: listOfFlowers) {
-
+            double radius = 0.3;
+            List<Bee> nearbyBees = listOfBees.stream().filter(b -> f.getPos().distance(b.getPosition()) <= radius).collect(Collectors.toList());
+            for (Bee b : nearbyBees){
+                b.interactWithFlower(f);
+            }
         }
     }
 }

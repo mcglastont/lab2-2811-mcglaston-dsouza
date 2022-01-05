@@ -39,6 +39,8 @@ public class Position {
         return new double[]{x, y};
     }
 
-
+    public double distance(Position p) {
+        return Math.hypot(p.getX() - x, p.getY() - y);
+    }
 
 }
