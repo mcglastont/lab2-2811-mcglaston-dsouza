@@ -6,10 +6,10 @@ public abstract class Bee {
 
     public abstract void move();
 
-    public abstract void interact();
+    public abstract void interactWithFlower(Flower flower);
 
-    public double[] getPosition() {
-        return pos.getPosition();
+    public Position getPosition() {
+        return pos;
     }
 
 }
