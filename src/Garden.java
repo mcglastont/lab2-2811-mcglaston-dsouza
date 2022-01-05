@@ -37,4 +37,8 @@ public class Garden {
             }
         }
     }
+
+    public void addFlower() {
+
+    }
 }
