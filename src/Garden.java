@@ -1,7 +1,9 @@
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -23,9 +25,16 @@ public class Garden {
     public void initialize() {              // executed after scene is loaded but before any methods
         theGarden.setStyle("-fx-background-color: linear-gradient(to bottom right, derive(forestgreen, 20%), derive(forestgreen, -40%));");
 
-        //Start by generating the bees and randomly placing them in the garden
+        //initiate the list of bees, flowers, and life force bars
+        listOfBees = new ArrayList<>();
+        listOfFlowers = new ArrayList<>();
+        lifeForce = new ArrayList<>();
 
-        theGarden.setFocusTraversable(true); // ensure garden pane will receive keypresses
+        //call the helper methods that will generate the bees and flowers in the garden
+        randomlyPopulate();
+
+
+        theGarden.setFocusTraversable(true); // ensure garden pane will receive key presses
     }
 
     public void update() {
@@ -34,7 +43,7 @@ public class Garden {
         given list of bees.
         */
         for (Bee b: listOfBees) {
-            b.move();
+            b.move(theGarden);
             double radius = 0.15;
             List<Bee> nearbyBees = listOfBees.stream().filter(e -> b.getPosition().distance(e.getPosition()) <= radius)
                     .collect(Collectors.toList());
@@ -64,11 +73,27 @@ public class Garden {
     public void randomlyPopulate() {
         int honeybees = r.nextInt(3) + 6;
         for (int i = 0; i < honeybees; i++) {
-            listOfBees.add(new Honeybee(randomPosition()));
+            ProgressBar healthBar = new ProgressBar();
+
+            healthBar.setMinHeight(4);
+            healthBar.setPrefHeight(4);
+            healthBar.setMaxHeight(4);
+            healthBar.setPrefWidth(32);
+            lifeForce.add(healthBar);
+            Position random = randomPosition();
+            listOfBees.add(new Honeybee(random, healthBar));
         }
         int hornets = r.nextInt(2) + 4;
         for (int i = 0; i < hornets; i++) {
-            listOfBees.add(new Hornet(randomPosition()));
+            ProgressBar healthBar = new ProgressBar();
+
+            healthBar.setMinHeight(4);
+            healthBar.setPrefHeight(4);
+            healthBar.setMaxHeight(4);
+            healthBar.setPrefWidth(32);
+            lifeForce.add(healthBar);
+            Position random = randomPosition();
+            listOfBees.add(new Hornet(random, healthBar));
         }
         int sunflowers = r.nextInt(7) + 1;
         for (int i = 0; i < sunflowers; i++) {
@@ -78,13 +103,21 @@ public class Garden {
         for (int i = 0; i < blackroses; i++) {
             listOfFlowers.add(new BlackRose(randomPosition()));
         }
+
+        for (Bee b: listOfBees) {
+            theGarden.getChildren().add(b.getBeeBox());
+            double x = r.nextDouble() * theGarden.getMaxWidth();
+            double y = r.nextDouble() * theGarden.getHeight();
+            b.setUp(x, y);
+        }
+
+        for (Flower f: listOfFlowers) {
+            theGarden.getChildren().add(f.getFlowerBox());
+        }
     }
 
     private Position randomPosition() {
-        return new Position(r.nextDouble(), r.nextDouble());
+        return new Position((r.nextDouble() * theGarden.getMaxWidth() ), (r.nextDouble() * theGarden.getHeight()));
     }
 
-    public void addFlower() {
-
-    }
 }
