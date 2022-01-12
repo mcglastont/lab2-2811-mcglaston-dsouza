@@ -3,19 +3,15 @@ import java.util.Random;
 
 public class Honeybee extends Bee {
 
-    private Position pos;
-    private int health;
-    private final int HEALTH_CAP = 150;
-    private ArrayList<Flower> brain;
-    private double[] vector;
+    private final int HEALTH_CAP = 225;
+
     private static final Random r = new Random();
 
     public Honeybee(Position pos) {
         this.pos = pos;
-        this.health = 125;
+        this.health = 225;
         this.brain = new ArrayList<>();
-        this.vector = new double[]{r.nextDouble() * 0.02, r.nextDouble() * 0.02};
-        // vector[0] = x-vector, vector[1] = y-vector
+        this.vector = randomizeVector(0.02);
     }
 
     @Override
@@ -26,19 +22,18 @@ public class Honeybee extends Bee {
 
     @Override
     public void interactWithFlower(Flower flower) {
+        if (!brain.contains(flower)) brain.add(flower);
         if (flower instanceof Sunflower) {
             health += 2;
         } else if (flower instanceof BlackRose) {
             health += -2;
         }
         health = Math.min(Math.max(health, 0), HEALTH_CAP);
+        if (r.nextDouble() < 0.02) randomizeVector(0.02);
     }
 
-    public Position getPosition() {
-        return pos;
-    }
-
-    public int getHealth() {
-        return health;
+    @Override
+    public void interactWithBee(Bee bee) {
+        if (bee instanceof Hornet) health -= 5;
     }
 }

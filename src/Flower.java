@@ -1,10 +1,11 @@
 public abstract class Flower {
 
-    public Position pos;
+    protected Position pos;
+    protected int health;
 
-    public abstract void interact();
+    public abstract void interactWithBee(Bee bee);
 
-    public Position getPos() {
+    public Position getPosition() {
         return pos;
     }
 }
