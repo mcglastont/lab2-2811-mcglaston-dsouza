@@ -1,5 +1,12 @@
+/*
+ * Course:     SE 2811
+ * Term:       Winter 2020-21
+ * Assignment: Garden - Extended
+ * Author:     Terry McGlaston
+ * Date:       1/5/2022
+ */
+
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 
@@ -8,8 +15,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/*
-This is the class that handles the garden and how it functions.
+/**
+ * This class represents the collection of all Bees and Flowers, as well as the space that they interact in.
+ * Each time the update() method is called, the garden advances in time, allowing bees to move around and tire out.
+ *
  */
 public class Garden {
     //variables

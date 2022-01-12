@@ -1,3 +1,11 @@
+/*
+ * Course:     SE 2811
+ * Term:       Winter 2020-21
+ * Assignment: Garden - Extended
+ * Author:     Sean D'Souza
+ * Date:       1/5/2022
+ */
+
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -9,6 +17,12 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class is a type of Bee.
+ * Hornets are damaged by each other.
+ * They are slightly healed by Sunflowers, and are greatly healed by Black Roses.
+ * They have less health than Honeybees, but move slightly faster.
+ */
 public class Hornet extends Bee {
     private Pane beeBox;
 
@@ -34,7 +48,7 @@ public class Hornet extends Bee {
 
     @Override
     public void move(Pane theGarden) {
-        pos.movePosition(vector);
+        super.move();
         health -= 1;
         beeBox.setLayoutX(pos.getX());
         beeBox.setLayoutY(pos.getY());

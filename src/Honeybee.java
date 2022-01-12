@@ -9,6 +9,14 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
+/**
+ * This class is a type of bee.
+ * Honeybees are damaged by hornets.
+ * They are healed by sunflowers but damaged by Black Roses.
+ * They have a lot of health.
+ */
 public class Honeybee extends Bee {
     private Pane beeBox;
 
@@ -34,8 +42,8 @@ public class Honeybee extends Bee {
     }
 
     @Override
-    public void move(Pane theGarden) {
-        pos.movePosition(vector);
+    public void move () {
+        super.move();
         health -= 1;
         beeBox.setLayoutX(pos.getX());
         beeBox.setLayoutY(pos.getY());
