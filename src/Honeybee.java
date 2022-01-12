@@ -42,7 +42,7 @@ public class Honeybee extends Bee {
     }
 
     @Override
-    public void move () {
+    public void move (Pane theGarden) {
         super.move();
         health -= 1;
         beeBox.setLayoutX(pos.getX());
