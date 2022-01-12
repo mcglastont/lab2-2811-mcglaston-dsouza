@@ -1,6 +1,22 @@
+/*
+ * Course:     SE 2811
+ * Term:       Winter 2020-21
+ * Assignment: Garden - Extended
+ * Author:     Sean D'Souza
+ * Date:       1/5/2022
+ */
+
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
+/**
+ * This class is a type of bee.
+ * Honeybees are damaged by hornets.
+ * They are healed by sunflowers but damaged by Black Roses.
+ * They have a lot of health.
+ */
 public class Honeybee extends Bee {
 
     private final int HEALTH_CAP = 225;
@@ -15,8 +31,8 @@ public class Honeybee extends Bee {
     }
 
     @Override
-    public void move() {
-        pos.movePosition(vector);
+    public void move () {
+        super.move();
         health -= 1;
     }
 

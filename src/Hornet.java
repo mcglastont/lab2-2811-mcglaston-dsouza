@@ -1,6 +1,20 @@
+/*
+ * Course:     SE 2811
+ * Term:       Winter 2020-21
+ * Assignment: Garden - Extended
+ * Author:     Sean D'Souza
+ * Date:       1/5/2022
+ */
+
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class is a type of Bee.
+ * Hornets are damaged by each other.
+ * They are slightly healed by Sunflowers, and are greatly healed by Black Roses.
+ * They have less health than Honeybees, but move slightly faster.
+ */
 public class Hornet extends Bee {
 
     private final int HEALTH_CAP = 100;
@@ -15,7 +29,7 @@ public class Hornet extends Bee {
 
     @Override
     public void move() {
-        pos.movePosition(vector);
+        super.move();
         health -= 1;
     }
 

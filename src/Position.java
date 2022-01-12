@@ -1,3 +1,15 @@
+/*
+ * Course:     SE 2811
+ * Term:       Winter 2020-21
+ * Assignment: Garden - Extended
+ * Author:     Sean D'Souza
+ * Date:       1/5/2022
+ */
+
+/**
+ * This class represents a position within the garden.
+ * Positions on both axes go from 0 to 1, to make it easier to scale and to work with.
+ */
 public class Position {
 
     private double x;
@@ -25,14 +37,14 @@ public class Position {
     }
 
     public void movePosition(double dx, double dy) {
-        setX(this.x + dx);
-        setY(this.y + dy);
+        x += dx;
+        y += dy;
     }
 
     public void movePosition(double[] vector) {
         if (vector.length != 2) return;
-        setX(getX() + vector[0]);
-        setY(getY() + vector[1]);
+        x += vector[0];
+        y += vector[1];
     }
 
     public double[] getPosition() {
