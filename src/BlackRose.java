@@ -18,9 +18,6 @@ import javafx.scene.layout.VBox;
  */
 public class BlackRose extends Flower {
 
-    private static final int HEALTH_CAP = 300;
-    private Pane flowerBox;
-
     public BlackRose(Position pos) {
         this.pos = pos;
         this.health = 300;

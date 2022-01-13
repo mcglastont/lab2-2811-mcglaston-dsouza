@@ -26,18 +26,20 @@ public abstract class Bee {
     protected int health;
     protected ArrayList<Flower> brain;
     protected double[] vector;
-    private final Random r = new Random();
-    private Pane beeBox;
+    protected Pane beeBox;
 
-    public void move() {
+    private final Random r = new Random();
+
+    public void move(Pane garden) {
         pos.movePosition(vector);
+        health -= 1;
         double margin = 0.01;
-        if (abs(0.5 - pos.getX()) < margin)
-            vector[0] = abs(vector[0]) * (vector[0] < 0.5 ? 1 : -1);
-        if (abs(0.5 - pos.getY()) < margin)
-            vector[1] = abs(vector[1]) * (vector[1] < 0.5 ? 1 : -1);
+        if (0.5 - abs(0.5 - pos.getX()) < margin)
+            vector[0] = abs(vector[0]) * (pos.getX() < 0.5 ? 1 : -1);
+        if (0.5 - abs(0.5 - pos.getY()) < margin)
+            vector[1] = abs(vector[1]) * (pos.getY() < 0.5 ? 1 : -1);
+        updateBeeBox(garden);
     }
-    public abstract void move(Pane theGarden);
 
     public abstract void interactWithFlower(Flower flower);
 
@@ -60,6 +62,9 @@ public abstract class Bee {
         return beeBox;
     }
 
-    public abstract void setUp(Double x, Double y);
+    public void updateBeeBox(Pane garden) {
+        beeBox.setLayoutX(pos.getX() * garden.getWidth());
+        beeBox.setLayoutY(pos.getY() * garden.getHeight());
+    }
 
 }

@@ -42,8 +42,9 @@ public class Garden {
         //call the helper methods that will generate the bees and flowers in the garden
         randomlyPopulate();
 
-
         theGarden.setFocusTraversable(true); // ensure garden pane will receive key presses
+
+        update();
     }
 
     public void update() {
@@ -53,8 +54,7 @@ public class Garden {
         */
         for (Bee b: listOfBees) {
             b.move(theGarden);
-            double radius = 0.15;
-            List<Bee> nearbyBees = listOfBees.stream().filter(e -> b.getPosition().distance(e.getPosition()) <= radius)
+            List<Bee> nearbyBees = listOfBees.stream().filter(e -> b.getPosition().distance(e.getPosition()) <= 0.15)
                     .collect(Collectors.toList());
             nearbyBees.remove(b);
             for (Bee e : nearbyBees) {
@@ -62,15 +62,15 @@ public class Garden {
                 b.interactWithBee(e);
             }
         }
-        listOfBees = listOfBees.stream().filter(b -> b.getHealth() > 0).collect(Collectors.toList()); // removes dead bees
+//        listOfBees = listOfBees.stream().filter(b -> b.getHealth() > 0).collect(Collectors.toList()); // removes dead bees
 
         /*
         This method randomly updates the status of each flower in the given list
         of flowers.
          */
         for (Flower f: listOfFlowers) {
-            double radius = 0.2;
-            List<Bee> nearbyBees = listOfBees.stream().filter(b -> f.getPosition().distance(b.getPosition()) <= radius)
+            f.updateFlowerBox(theGarden);
+            List<Bee> nearbyBees = listOfBees.stream().filter(b -> f.getPosition().distance(b.getPosition()) <= 0.2)
                     .collect(Collectors.toList());
             for (Bee b : nearbyBees) {
                 b.interactWithFlower(f);
@@ -82,51 +82,55 @@ public class Garden {
     public void randomlyPopulate() {
         int honeybees = r.nextInt(3) + 6;
         for (int i = 0; i < honeybees; i++) {
-            ProgressBar healthBar = new ProgressBar();
-
-            healthBar.setMinHeight(4);
-            healthBar.setPrefHeight(4);
-            healthBar.setMaxHeight(4);
-            healthBar.setPrefWidth(32);
+            ProgressBar healthBar = generateHealthBar();
             lifeForce.add(healthBar);
-            Position random = randomPosition();
-            listOfBees.add(new Honeybee(random, healthBar));
+            listOfBees.add(new Honeybee(randomPosition(), healthBar));
         }
+
         int hornets = r.nextInt(2) + 4;
         for (int i = 0; i < hornets; i++) {
-            ProgressBar healthBar = new ProgressBar();
-
-            healthBar.setMinHeight(4);
-            healthBar.setPrefHeight(4);
-            healthBar.setMaxHeight(4);
-            healthBar.setPrefWidth(32);
+            ProgressBar healthBar = generateHealthBar();
             lifeForce.add(healthBar);
-            Position random = randomPosition();
-            listOfBees.add(new Hornet(random, healthBar));
+            listOfBees.add(new Hornet(randomPosition(), healthBar));
         }
+
         int sunflowers = r.nextInt(7) + 1;
         for (int i = 0; i < sunflowers; i++) {
-            listOfFlowers.add(new Sunflower(randomPosition()));
+            listOfFlowers.add(new Sunflower(randomPosition(0.2, 0.8)));
         }
+
         int blackroses = r.nextInt(3) + 1;
         for (int i = 0; i < blackroses; i++) {
-            listOfFlowers.add(new BlackRose(randomPosition()));
+            listOfFlowers.add(new BlackRose(randomPosition(0.2, 0.8)));
         }
 
         for (Bee b: listOfBees) {
             theGarden.getChildren().add(b.getBeeBox());
-            double x = r.nextDouble() * theGarden.getMaxWidth();
-            double y = r.nextDouble() * theGarden.getHeight();
-            b.setUp(x, y);
+            b.updateBeeBox(theGarden);
         }
 
         for (Flower f: listOfFlowers) {
             theGarden.getChildren().add(f.getFlowerBox());
+            f.updateFlowerBox(theGarden);
         }
     }
 
     private Position randomPosition() {
-        return new Position((r.nextDouble() * theGarden.getMaxWidth() ), (r.nextDouble() * theGarden.getHeight()));
+        return new Position(r.nextDouble(), r.nextDouble());
+    }
+
+    private Position randomPosition(double min, double max) {
+        return new Position(r.nextDouble() * (max - min) + min, r.nextDouble() * (max - min) + min);
+    }
+
+
+    private ProgressBar generateHealthBar() {
+        ProgressBar healthBar = new ProgressBar();
+        healthBar.setMinHeight(4);
+        healthBar.setPrefHeight(4);
+        healthBar.setMaxHeight(4);
+        healthBar.setPrefWidth(32);
+        return healthBar;
     }
 
 }

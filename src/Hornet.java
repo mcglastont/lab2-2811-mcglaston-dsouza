@@ -24,7 +24,6 @@ import java.util.Random;
  * They have less health than Honeybees, but move slightly faster.
  */
 public class Hornet extends Bee {
-    private Pane beeBox;
 
     private final int HEALTH_CAP = 100;
     private static final Random r = new Random();
@@ -33,7 +32,7 @@ public class Hornet extends Bee {
         this.pos = pos;
         this.health = 100;
         this.brain = new ArrayList<>();
-        this.vector = randomizeVector(15);
+        this.vector = randomizeVector(0.03);
         ImageView beeImage = new ImageView(new Image("file:images/Hornet.jpg")); // draws bee
         beeImage.setPreserveRatio(true);    // ensure ratio preserved when scaling the bee
         beeImage.setFitWidth(50.0);         // scale bee to be a reasonable size
@@ -44,14 +43,6 @@ public class Hornet extends Bee {
         beeBox.getChildren().add(beeImage);
         beeBox.getChildren().add(beeLabel);
         beeBox.getChildren().add(lifeForce);
-    }
-
-    @Override
-    public void move(Pane theGarden) {
-        super.move();
-        health -= 1;
-        beeBox.setLayoutX(pos.getX());
-        beeBox.setLayoutY(pos.getY());
     }
 
     @Override
@@ -72,11 +63,5 @@ public class Hornet extends Bee {
 
     public Pane getBeeBox() {
         return beeBox;
-    }
-
-    @Override
-    public void setUp(Double x, Double y) {
-        beeBox.setLayoutX(x);
-        beeBox.setLayoutY(y);
     }
 }

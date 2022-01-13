@@ -17,7 +17,7 @@ public abstract class Flower {
 
     protected Position pos;
     protected int health;
-    private Pane flowerBox;
+    protected Pane flowerBox;
 
     public abstract void interactWithBee(Bee bee);
 
@@ -29,5 +29,10 @@ public abstract class Flower {
 
     public int getHealth() {
         return health;
+    }
+
+    public void updateFlowerBox(Pane garden) {
+        flowerBox.setLayoutX(pos.getX() * garden.getWidth());
+        flowerBox.setLayoutY(pos.getY() * garden.getHeight());
     }
 }

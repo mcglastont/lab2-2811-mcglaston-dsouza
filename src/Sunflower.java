@@ -6,18 +6,17 @@
  * Date:       1/5/2022
  */
 
-/**
- * This class is a type of flower.
- * It is healed by Honeybees and hurt by Hornets.
- */
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class is a type of flower.
+ * It is healed by Honeybees and hurt by Hornets.
+ */
 public class Sunflower extends Flower{
-    private Pane flowerBox;
 
     public Sunflower(Position pos) {
         this.pos = pos;

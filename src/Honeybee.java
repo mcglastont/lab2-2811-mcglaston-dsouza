@@ -18,17 +18,15 @@ import static java.lang.Math.abs;
  * They have a lot of health.
  */
 public class Honeybee extends Bee {
-    private Pane beeBox;
 
     private final int HEALTH_CAP = 225;
-
     private static final Random r = new Random();
 
     public Honeybee(Position pos, ProgressBar lifeForce) {
         this.pos = pos;
         this.health = 225;
         this.brain = new ArrayList<>();
-        this.vector = randomizeVector(10);
+        this.vector = randomizeVector(0.02);
         ImageView beeImage = new ImageView(new Image("file:images/Honeybee.jpg")); // draws bee
         beeImage.setPreserveRatio(true);    // ensure ratio preserved when scaling the bee
         beeImage.setFitWidth(50.0);         // scale bee to be a reasonable size
@@ -39,14 +37,6 @@ public class Honeybee extends Bee {
         beeBox.getChildren().add(beeImage);
         beeBox.getChildren().add(beeLabel);
         beeBox.getChildren().add(lifeForce);
-    }
-
-    @Override
-    public void move (Pane theGarden) {
-        super.move();
-        health -= 1;
-        beeBox.setLayoutX(pos.getX());
-        beeBox.setLayoutY(pos.getY());
     }
 
     @Override
@@ -68,11 +58,5 @@ public class Honeybee extends Bee {
 
     public Pane getBeeBox() {
         return beeBox;
-    }
-
-    @Override
-    public void setUp(Double x, Double y) {
-        beeBox.setLayoutX(x);
-        beeBox.setLayoutY(y);
     }
 }
