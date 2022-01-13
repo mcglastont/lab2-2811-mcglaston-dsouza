@@ -16,7 +16,9 @@ import javafx.scene.layout.VBox;
  * This class is a type of flower.
  * It is healed by Honeybees and hurt by Hornets.
  */
-public class Sunflower extends Flower{
+public class Sunflower extends Flower {
+
+    private final int HEALTH_CAP = 300;
 
     public Sunflower(Position pos) {
         this.pos = pos;
@@ -25,7 +27,7 @@ public class Sunflower extends Flower{
         flowerImage.setPreserveRatio(true);    // ensure ratio preserved when scaling the flower
         flowerImage.setFitWidth(50.0);         // scale flower to be a reasonable size
         Label flowerLabel = new Label();
-        flowerLabel.setText("Sun flower");
+        flowerLabel.setText("Sunflower");
         flowerLabel.setStyle("-fx-text-fill: blue;");
         flowerBox = new VBox();
         flowerBox.getChildren().add(flowerImage);
@@ -34,8 +36,9 @@ public class Sunflower extends Flower{
 
     @Override
     public void interactWithBee(Bee bee) {
-        if (bee instanceof Honeybee) health += 5;
+        if (bee instanceof Honeybee) health += 10;
         else if (bee instanceof Hornet) health -= 4;
+        health = Math.min(HEALTH_CAP, health);
     }
 
     public Pane getFlowerBox() {

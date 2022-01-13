@@ -61,8 +61,9 @@ public class Garden {
                 e.interactWithBee(b);
                 b.interactWithBee(e);
             }
+            if (b.getHealth() <= 0) b.die();
         }
-//        listOfBees = listOfBees.stream().filter(b -> b.getHealth() > 0).collect(Collectors.toList()); // removes dead bees
+        listOfBees = listOfBees.stream().filter(b -> b.getHealth() > 0).collect(Collectors.toList()); // removes dead bees
 
         /*
         This method randomly updates the status of each flower in the given list
@@ -76,7 +77,9 @@ public class Garden {
                 b.interactWithFlower(f);
                 f.interactWithBee(b);
             }
+            if (f.getHealth() <= 0) f.die();
         }
+        listOfFlowers = listOfFlowers.stream().filter(f -> f.getHealth() > 0).collect(Collectors.toList());
     }
 
     public void randomlyPopulate() {
@@ -94,14 +97,14 @@ public class Garden {
             listOfBees.add(new Hornet(randomPosition(), healthBar));
         }
 
-        int sunflowers = r.nextInt(7) + 1;
+        int sunflowers = r.nextInt(20) + 10;
         for (int i = 0; i < sunflowers; i++) {
-            listOfFlowers.add(new Sunflower(randomPosition(0.2, 0.8)));
+            listOfFlowers.add(new Sunflower(randomPosition(0.05, 0.95)));
         }
 
-        int blackroses = r.nextInt(3) + 1;
+        int blackroses = r.nextInt(8) + 5;
         for (int i = 0; i < blackroses; i++) {
-            listOfFlowers.add(new BlackRose(randomPosition(0.2, 0.8)));
+            listOfFlowers.add(new BlackRose(randomPosition(0.05, 0.95)));
         }
 
         for (Bee b: listOfBees) {

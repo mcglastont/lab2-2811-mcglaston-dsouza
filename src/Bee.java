@@ -67,4 +67,8 @@ public abstract class Bee {
         beeBox.setLayoutY(pos.getY() * garden.getHeight());
     }
 
+    public void die() {
+        beeBox.getChildren().clear();
+    }
+
 }

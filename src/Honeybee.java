@@ -53,7 +53,8 @@ public class Honeybee extends Bee {
 
     @Override
     public void interactWithBee(Bee bee) {
-        if (bee instanceof Hornet) health -= 5;
+        if (bee instanceof Hornet) health -= 2;
+        health = Math.min(HEALTH_CAP, health);
     }
 
     public Pane getBeeBox() {

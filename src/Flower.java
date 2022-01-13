@@ -35,4 +35,8 @@ public abstract class Flower {
         flowerBox.setLayoutX(pos.getX() * garden.getWidth());
         flowerBox.setLayoutY(pos.getY() * garden.getHeight());
     }
+
+    public void die() {
+        flowerBox.getChildren().clear();
+    }
 }

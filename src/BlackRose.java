@@ -18,9 +18,11 @@ import javafx.scene.layout.VBox;
  */
 public class BlackRose extends Flower {
 
+    private final int HEALTH_CAP = 300;
+
     public BlackRose(Position pos) {
         this.pos = pos;
-        this.health = 300;
+        this.health = 150;
         ImageView flowerImage = new ImageView(new Image("file:images/BlackRose.jpg")); // draws flower
         flowerImage.setPreserveRatio(true);    // ensure ratio preserved when scaling the flower
         flowerImage.setFitWidth(50.0);         // scale flower to be a reasonable size
@@ -34,8 +36,8 @@ public class BlackRose extends Flower {
 
     @Override
     public void interactWithBee(Bee bee) {
-        if (bee instanceof Hornet) health += 5;
-        else if (bee instanceof Honeybee) health -= 2;
+        if (bee instanceof Hornet) health += 6;
+        else if (bee instanceof Honeybee) health -= 5;
     }
 
     public Pane getFlowerBox() {
